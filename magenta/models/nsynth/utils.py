@@ -84,6 +84,18 @@ def mu_law(x, mu=255, int8=False):
     out = tf.cast(out, tf.int8)
   return out
 
+def soft_mu_law(x,mu=255):
+  """TF implementation of Soft Mu-Law encoding, which is differentiable.
+  Args:
+    x: The audio samples to encode.
+    mu: The Mu to use in our Mu-Law.
+
+  Returns:
+    out: The Soft Mu-Law encoded float32 data.
+  """
+  out = tf.sign(x) * tf.log(1 + mu * tf.abs(x)) / np.log(1 + mu)
+  out = out * 128
+  return out
 
 def inv_mu_law(x, mu=255):
   """A TF implementation of inverse Mu-Law.

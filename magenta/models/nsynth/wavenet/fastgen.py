@@ -108,6 +108,7 @@ def encode(wav_data, checkpoint_path, sample_length=64000):
     net = load_nsynth(batch_size=batch_size, sample_length=sample_length)
     saver = tf.train.Saver()
     saver.restore(sess, checkpoint_path)
+    
     encodings = sess.run(net["encoding"], feed_dict={net["X"]: wav_data})
   return encodings
 

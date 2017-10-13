@@ -24,6 +24,7 @@ from magenta.models.nsynth import reader
 from magenta.models.nsynth import utils
 from magenta.models.nsynth.wavenet import masked
 
+import pdb
 
 class FastGenerationConfig(object):
   """Configuration object that helps manage the graph."""
@@ -207,9 +208,12 @@ class Config(object):
 
     # Encode the source with 8-bit Mu-Law.
     x = inputs['wav']
+    x_mu_law = utils.soft_mu_law(x)
+    x_scaled = x_mu_law/128.0
+
     x_quantized = utils.mu_law(x)
-    x_scaled = tf.cast(x_quantized, tf.float32) / 128.0
-    x_scaled = tf.expand_dims(x_scaled, 2)
+    #x_scaled = tf.cast(x_quantized, tf.float32) / 128.0
+    #x_scaled = tf.expand_dims(x_scaled, 2)
 
     ###
     # The Non-Causal Temporal Encoder.

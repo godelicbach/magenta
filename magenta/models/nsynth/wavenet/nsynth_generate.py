@@ -13,6 +13,7 @@
 # limitations under the License.
 """A binary for generating samples given a folder of .wav files or encodings."""
 
+import pdb
 import os
 import tensorflow as tf
 
@@ -41,6 +42,8 @@ def main(unused_argv=None):
   source_path = utils.shell_path(FLAGS.source_path)
   checkpoint_path = utils.shell_path(FLAGS.checkpoint_path)
   save_path = utils.shell_path(FLAGS.save_path)
+  
+  
   if not save_path:
     raise RuntimeError("Must specify a save_path.")
   tf.logging.set_verbosity(FLAGS.log)
